@@ -1,0 +1,28 @@
+<h1>The Movement</h1>
+<div class="imageWrapper">
+
+    <div class="image">
+        <img src="../../../assets/HeaderPicnew.png" class="backgoundImg">
+    </div>
+
+
+</div>
+
+<div class="EventTickerForm">
+    <div class="NextEventForm">
+        <span class="nextEvent"> Next Event</span>
+        <span class="NextEventName"> {{nextevent}} </span>
+    </div>
+
+    <div class="Countdown">
+
+        <countdown #cd [config]="config"></countdown>
+    </div>
+
+    <div class="Countdownlabel">
+        <span class="dayLabel">Tage</span>
+        <span class="hourLabel"> Stunden</span>
+        <span class="minutesLabel"> Minuten</span>
+        <span class="secondLabel" > Sekunden</span>
+    </div>
+</div>
