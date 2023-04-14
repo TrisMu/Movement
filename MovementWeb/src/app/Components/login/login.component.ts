@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import Validation from "../../../app/utilities/validation"
+import { Profile, SupabaseService } from 'src/services/supabase.service';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -32,8 +33,11 @@ export class LoginComponent {
     acceptTerms: new FormControl(false),
   });
   submitted = false;
+  loading = false
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder,
+    private readonly supabase: SupabaseService,
+    ) { }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group(
@@ -69,7 +73,7 @@ export class LoginComponent {
     return this.form.controls;
   }
 
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {
     this.submitted = true;
 
     if (this.form.invalid) {
@@ -77,23 +81,56 @@ export class LoginComponent {
     }
 
     console.log(JSON.stringify(this.form.value, null, 2));
+
+
+    try {
+      this.loading = true
+      const email = this.form.value.email as string
+      const password = this.form.value.password as string
+      const firstname = this.form.value.firstname as string
+      const lastname = this.form.value.lastname as string
+
+
+
+      console.log(lastname, firstname)
+
+      const newUser: Profile = {
+        email:email,
+        password :password,
+        first_name:firstname,
+        last_name:lastname
+      }
+      
+
+      const { error }= await this.supabase.registerProfile(newUser)  
+      if (error) throw error
+      alert('Bitte bestätige deine Email. Wir haben dir einen link zugeschickt')
+
+      this.updateuserCredentials(newUser)
+    } catch (error) {
+      if (error instanceof Error) {
+        alert(error.message)
+      }
+    } finally {
+      this.form.reset()
+      this.loading = false
+      
+    }
+
+  
+  }
+  async updateuserCredentials(user: Profile){
+
+  const {error} =  await this.supabase.updateuserCred(user)
+  console.log(error)
+    
   }
 
   onReset(): void {
     this.submitted = false;
     this.form.reset();
   }
-
-  submit() {
-    let user =  this.form.value
-    
-    let firstname = user.firstname
-    let lastname = user.lastname
-
-    console.log(user);
-    console.log("lastname " ,firstname)
-    
-    
-  }
-
 }
+
+
+
