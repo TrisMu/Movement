@@ -14,8 +14,8 @@ export class HomScreenComponent {
   nextevent = "Sille Rave "
 
   config: CountdownConfig = {
-    leftTime:  60  * 60 * 24 * (30) ,
-    format: 'dd:HH:mm:ss',
+    leftTime:  60  * 60 * 24 * 30,
+    format: 'dd  :HH:mm:ss',
     formatDate: ({ date, formatStr }) => format(date, formatStr),
 
     prettyText: (text) => {
