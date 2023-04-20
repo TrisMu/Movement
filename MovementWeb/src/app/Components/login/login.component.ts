@@ -1,29 +1,37 @@
 import { Component } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  FormGroupDirective,
+  NgForm,
+  Validators,
+} from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import Validation from "../../../app/utilities/validation"
+import Validation from '../../../app/utilities/validation';
 import { Profile, SupabaseService } from 'src/services/supabase.service';
-
+import { Router } from '@angular/router';
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+  isErrorState(
+    control: FormControl | null,
+    form: FormGroupDirective | NgForm | null
+  ): boolean {
     const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+    return !!(
+      control &&
+      control.invalid &&
+      (control.dirty || control.touched || isSubmitted)
+    );
   }
 }
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
-
-
-
-
-
 export class LoginComponent {
-
-
   form: FormGroup = new FormGroup({
     fullname: new FormControl(''),
     username: new FormControl(''),
@@ -31,43 +39,43 @@ export class LoginComponent {
     password: new FormControl(''),
     confirmPassword: new FormControl(''),
     acceptTerms: new FormControl(false),
+    submittedLS: new FormControl(false),
+    iban: new FormControl(''),
   });
   submitted = false;
-  loading = false
 
-  constructor(private formBuilder: FormBuilder,
+  loading = false;
+
+  constructor(
+    private formBuilder: FormBuilder,
     private readonly supabase: SupabaseService,
-    ) { }
+    private route: Router
+  ) {}
 
   ngOnInit(): void {
     this.form = this.formBuilder.group(
       {
         firstname: ['', Validators.required],
-        lastname: [
-          '',
-          [
-            Validators.required,
-
-          ]
-        ],
+        lastname: ['', [Validators.required]],
         email: ['', [Validators.required, Validators.email]],
         password: [
           '',
           [
             Validators.required,
             Validators.minLength(6),
-            Validators.maxLength(40)
-          ]
+            Validators.maxLength(40),
+          ],
         ],
         confirmPassword: ['', Validators.required],
-        acceptTerms: [false, Validators.requiredTrue]
+        iban: ['', [Validators.required, Validators.minLength(22), Validators.maxLength(22)] ],
+        acceptTerms: [false, Validators.requiredTrue],
+        submittedLS: [false, Validators.requiredTrue]
       },
       {
-        validators: [Validation.match('password', 'confirmPassword')]
+        validators: [Validation.match('password', 'confirmPassword')],
       }
     );
   }
-
 
   get f(): { [key: string]: AbstractControl } {
     return this.form.controls;
@@ -82,48 +90,42 @@ export class LoginComponent {
 
     console.log(JSON.stringify(this.form.value, null, 2));
 
-
     try {
-      this.loading = true
-      const email = this.form.value.email as string
-      const password = this.form.value.password as string
-      const firstname = this.form.value.firstname as string
-      const lastname = this.form.value.lastname as string
+      this.loading = true;
+      const email = this.form.value.email as string;
+      const password = this.form.value.password as string;
+      const firstname = this.form.value.firstname as string;
+      const lastname = this.form.value.lastname as string;
 
-
-
-      console.log(lastname, firstname)
+      console.log(lastname, firstname);
 
       const newUser: Profile = {
-        email:email,
-        password :password,
-        first_name:firstname,
-        last_name:lastname
-      }
-      
+        email: email,
+        password: password,
+        first_name: firstname,
+        last_name: lastname,
+      };
 
-      const { error }= await this.supabase.registerProfile(newUser)  
-      if (error) throw error
-      alert('Bitte bestätige deine Email. Wir haben dir einen link zugeschickt')
+      const { error } = await this.supabase.registerProfile(newUser);
+      if (error) throw error;
+      alert(
+        'Bitte bestätige deine Email. Wir haben dir einen link zugeschickt'
+      );
 
-      this.updateuserCredentials(newUser)
+      this.updateuserCredentials(newUser);
     } catch (error) {
       if (error instanceof Error) {
-        alert(error.message)
+        alert(error.message);
       }
     } finally {
-      this.form.reset()
-      this.loading = false
-      
+      this.form.reset();
+      this.loading = false;
+      this.route.navigate(['/home']);
     }
-
-  
   }
-  async updateuserCredentials(user: Profile){
-
-  const {error} =  await this.supabase.updateuserCred(user)
-  console.log(error)
-    
+  async updateuserCredentials(user: Profile) {
+    const { error } = await this.supabase.updateuserCred(user);
+    console.log(error);
   }
 
   onReset(): void {
@@ -131,6 +133,3 @@ export class LoginComponent {
     this.form.reset();
   }
 }
-
-
-

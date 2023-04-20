@@ -13,6 +13,7 @@ import { LoginComponent } from './Components/login/login.component';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
 
 import {MatButtonModule} from '@angular/material/button';
+import { RegisterComponent } from './Components/register/register.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import {MatButtonModule} from '@angular/material/button';
     NavbarComponent,
     HomScreenComponent,
     LoginComponent,
+    RegisterComponent,
     
 
   ],

@@ -1,134 +1,134 @@
 <div class="loginFormwrapper">
-    <div class="inputs">
+  <div class="inputs">
 
-        <form [formGroup]="form" (ngSubmit)="onSubmit()">
-            <mat-form-field class="example-full-width">
-                <mat-label>First Name </mat-label>
-            <div class="form-group">
-              
-              <input
-              matInput
-                type="text"
-                formControlName="firstname"
-                class="form-control"
-                [ngClass]="{ 'is-invalid': submitted && f['firstname'].errors }"
-              />
-              <div *ngIf="submitted && f['firstname'].errors" class="invalid-feedback">
-                <mat-error *ngIf="f['firstname'].errors['required']">Firstname is required</mat-error>
-              </div>
-            </div>
-            </mat-form-field>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <mat-form-field class="example-full-width">
+        <mat-label>First Name </mat-label>
+        <div class="form-group">
 
-            <mat-form-field class="example-full-width">
-                <mat-label>Last Name</mat-label>
-            <div class="form-group">
-                
-                <input
-                matInput
-                  type="text"
-                  formControlName="lastname"
-                  class="form-control"
-                  [ngClass]="{ 'is-invalid': submitted && f['lastname'].errors }"
-                />
-                <div *ngIf="submitted && f['lastname'].errors" class="invalid-feedback">
-                  <mat-error *ngIf="f['lastname'].errors['required']">lastname is required</mat-error>
-                </div>
-              </div>
-            </mat-form-field>
-        
+          <input matInput type="text" formControlName="firstname" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f['firstname'].errors }" />
+          <div *ngIf="submitted && f['firstname'].errors" class="invalid-feedback">
+            <mat-error *ngIf="f['firstname'].errors['required']">Firstname is required</mat-error>
+          </div>
+        </div>
+      </mat-form-field>
 
-            <mat-form-field class="example-full-width">
-                <mat-label>Email</mat-label>
-            <div class="form-group">
-              
-              <input
-              matInput
-                type="text"
-                formControlName="email"
-                class="form-control"
-                [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
-              />
-              <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
-                <mat-error *ngIf="f['email'].errors['required']">Email is required</mat-error>
-                <mat-error *ngIf="f['email'].errors['email']">Email is invalid</mat-error>
-              </div>
-            </div>
-            </mat-form-field>
-            
+      <mat-form-field class="example-full-width">
+        <mat-label>Last Name</mat-label>
+        <div class="form-group">
 
-            <mat-form-field class="example-full-width">
-                <mat-label>Password </mat-label>
-            <div class="form-group">
-            
-              <input
-              matInput
-                type="password"
-                formControlName="password"
-                class="form-control"
-                [ngClass]="{ 'is-invalid': submitted && f['password'].errors }"
-              />
-              <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
-                <mat-error *ngIf="f['password'].errors['required']">Password is required</mat-error>
-                <mat-error *ngIf="f['password'].errors['minlength']">
-                  Password must be at least 6 characters
-                </mat-error>
-                <mat-error *ngIf="f['password'].errors['maxlength']">
-                  Username must not exceed 40 characters
-                </mat-error>
-              </div>
+          <input matInput type="text" formControlName="lastname" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f['lastname'].errors }" />
+          <div *ngIf="submitted && f['lastname'].errors" class="invalid-feedback">
+            <mat-error *ngIf="f['lastname'].errors['required']">lastname is required</mat-error>
+          </div>
+        </div>
+      </mat-form-field>
+
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Email</mat-label>
+        <div class="form-group">
+
+          <input matInput type="text" formControlName="email" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f['email'].errors }" />
+          <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+            <mat-error *ngIf="f['email'].errors['required']">Email is required</mat-error>
+            <mat-error *ngIf="f['email'].errors['email']">Email is invalid</mat-error>
+          </div>
+        </div>
+      </mat-form-field>
+
+   <!-- <mat-form-field class="example-full-width"> -->
+     <!-- <mat-label>Kridit Institut</mat-label> -->
+     <!-- <div class="form-group"> -->
+
+       <!-- <input matInput type="text" formControlName="kreditname" class="form-control" -->
+         <!-- [ngClass]="{ 'is-invalid': submitted && f['kreditname'].errors }" /> -->
+       <!-- <div *ngIf="submitted && f['kreditname'].errors" class="invalid-feedback"> -->
+         <!-- <mat-error *ngIf="f['kreditname'].errors['required']">Email is required</mat-error> -->
+         <!-- <mat-error *ngIf="f['kreditname'].errors['kreditname']">Email is invalid</mat-error> -->
+       <!-- </div> -->
+     <!-- </div> -->
+   <!-- </mat-form-field> -->
+
+      <mat-form-field class="example-full-width">
+        <mat-label>IBan</mat-label>
+        <div class="form-group">
+          <input matInput type="text" formControlName="iban" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f['iban'].errors }" />
+            <div *ngIf="submitted && f['iban'].errors" class="invalid-feedback">
+              <mat-error *ngIf="f['iban'].errors['iban']"> Iban invalid </mat-error>
+              <mat-error *ngIf="f['iban'].errors['required']">Iban is required</mat-error>
+
             </div>
-            </mat-form-field>
-        
-            <div class="form-group">
-            <mat-form-field class="example-full-width">
-                <mat-label>Confrim Password </mat-label>
-              <input
-              matInput
-                type="password"
-                formControlName="confirmPassword"
-                class="form-control"
-                [ngClass]="{ 'is-invalid': submitted && f['confirmPassword'].errors }"
-              />
-              <div
-                *ngIf="submitted && f['confirmPassword'].errors"
-                class="invalid-feedback"
-              >
-                <mat-error *ngIf="f['confirmPassword'].errors['required']">
-                  Confirm Password is required
-                </mat-error>
-                <mat-error *ngIf="f['confirmPassword'].errors['matching']">
-                  Confirm Password does not match
-                </mat-error >
-              </div>
-            </mat-form-field>
-            </div>
-        
-            <div class="form-group form-check">
-              <input
-              
-                type="checkbox"
-                formControlName="acceptTerms"
-                class="form-check-input"
-                [ngClass]="{ 'is-invalid': submitted && f['acceptTerms'].errors }"
-              />
-              <label for="acceptTerms" class="form-check-label"
-                >I have read and agree to the Terms</label
-              >
-              <mat-error *ngIf="submitted && f['acceptTerms'].errors" class="invalid-feedback">
-                Accept Terms is required
-              </mat-error>
-            </div>
-        
-            <div class="form-group">
-              <button mat-raised-button color="primary" class="btn btn-primary" >Register</button>
-              <button mat-raised-button color="warn"
-                type="button"
-                (click)="onReset()"
-                class="btn btn-warning float-right"
-              >
-                Reset
-              </button>
-            </div>
-          </form>
-    </div>
+          </div>
+      </mat-form-field>
+
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Password </mat-label>
+        <div class="form-group">
+
+          <input matInput type="password" formControlName="password" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f['password'].errors }" />
+          <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+            <mat-error *ngIf="f['password'].errors['required']">Password is required</mat-error>
+            <mat-error *ngIf="f['password'].errors['minlength']">
+              Password must be at least 6 characters
+            </mat-error>
+            <mat-error *ngIf="f['password'].errors['maxlength']">
+              Username must not exceed 40 characters
+            </mat-error>
+          </div>
+        </div>
+      </mat-form-field>
+
+      <div class="form-group">
+        <mat-form-field class="example-full-width">
+          <mat-label>Confrim Password </mat-label>
+          <input matInput type="password" formControlName="confirmPassword" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f['confirmPassword'].errors }" />
+          <div *ngIf="submitted && f['confirmPassword'].errors" class="invalid-feedback">
+            <mat-error *ngIf="f['confirmPassword'].errors['required']">
+              Confirm Password is required
+            </mat-error>
+            <mat-error *ngIf="f['confirmPassword'].errors['matching']">
+              Confirm Password does not match
+            </mat-error>
+          </div>
+        </mat-form-field>
+      </div>
+
+      <div class="form-group form-check">
+        <input type="checkbox" formControlName="acceptTerms" class="form-check-input"
+          [ngClass]="{ 'is-invalid': submitted && f['acceptTerms'].errors }" />
+        <label for="acceptTerms" class="form-check-label">I have read and agree to the Terms</label>
+        <mat-error *ngIf="submitted && f['acceptTerms'].errors" class="invalid-feedback">
+          Accept Terms is required
+        </mat-error>
+      </div>
+
+
+      <div class="form-group form-check">
+        <input type="checkbox" formControlName="submittedLS" class="form-check-input"
+          [ngClass]="{ 'is-invalid': submitted && f['submittedLS'].errors }" />
+        <label for="submittedLS" class="form-check-label">Ich erteile hiermit das Lastschriftmandat</label>
+        <mat-error *ngIf="submitted && f['submittedLS'].errors" class="invalid-feedback">
+            Payment is required
+        </mat-error>
+      </div>
+
+      <div class="form-group">
+        <div class="buttons">
+          <button mat-raised-button color="primary" class="registerbtn">Register</button>
+          <button mat-raised-button color="warn" type="button" (click)="onReset()" class="resetbtn">
+            Reset
+          </button>
+        </div>
+
+      </div>
+    </form>
+  </div>
 </div>
